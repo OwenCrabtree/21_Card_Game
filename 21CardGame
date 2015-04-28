@@ -3,117 +3,131 @@ package project;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
+
 /**
  * @author Owen Crabtree
  */
 public class Project {
 
     public static void main(String[] args) {
-       //arrays to hold values of cards
-        int hearts[]={1,2,3,4,5,6,7,8,9,10,11,11,11};
-        int diamonds[]={1,2,3,4,5,6,7,8,9,10,11,11,11};
-        int spades[]={1,2,3,4,5,6,7,8,9,10,11,11,11};
-        int clubs[]={1,2,3,4,5,6,7,8,9,10,11,11,11};
-        
-        int deck[]=new int [52];
+        //arrays to hold values of cards
+        int hearts[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 11, 11};
+        int diamonds[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 11, 11};
+        int spades[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 11, 11};
+        int clubs[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 11, 11};
+
+        int deck[] = new int[52];
         //insert values into the deck array
-        deck=hearts;deck=diamonds; deck=spades; deck=clubs;
-        
-        int z[]=new int[2];
-        
-        ArrayList Cards= new ArrayList();//stores player's cards
-        
+        deck = hearts;
+        deck = diamonds;
+        deck = spades;
+        deck = clubs;
 
-        //Calls the Card() method to generate a random card and
-        // and it to the Players Card array, this is done twice        
-        Cards.add(Card(deck));
-        Cards.add(Card(deck));
-        
-        // Gives total value of cards
-        int total=PlayersTotal(Cards);
-        //Prints out the values in the cards array
-        System.out.println(Cards.toString());
-        JOptionPane.showMessageDialog(null, "Players Total: "+total);
-        
-       // A loop that asks if you want another card
-        for(int i=0;i<deck.length;i++){
-         String y=JOptionPane.showInputDialog("Do you want another card?");
-         y = y.toLowerCase();
-           if(y.equals("yes")|| y.equals("y")){
+        int z[] = new int[2];
+
+        JOptionPane.showMessageDialog(null, "Are you ready to start the game?");
+
+        int x = 0;
+        while (x == 0) {
+
+            ArrayList Cards = new ArrayList();//stores player's cards
+
+            //Calls the Card() method to generate a random card and
+            // and it to the Players Card array, this is done twice        
             Cards.add(Card(deck));
-             total=PlayersTotal(Cards);
-            JOptionPane.showMessageDialog(null, "Players Total: "+total);
-            System.out.println(Cards.toString());
-              if(total >= 21)
-                 break;
-            } else{
-              i=deck.length;
-            }// end of if else
-        }//end of for loop
-        
-      //Generates cards for dealer
-       z= Dealer(deck);
-      // Total value of dealers cards
-       int dealerTotal=DealersTotal(z);
-       System.out.println(Arrays.toString(z)+" dealers cards");
-        
-       //Checks if total is less than or equal to 21
-       if(total<=21){ 
-           //checks if Players total is greater that te Dealers total
-            if(total>dealerTotal){
-                JOptionPane.showMessageDialog(null,"Players Total: "+total);
-                JOptionPane.showMessageDialog(null,"Dealers Total: "+dealerTotal);
-               JOptionPane.showMessageDialog(null,"You Win!");
-                System.out.println("You win!");
-            }else{
-                JOptionPane.showMessageDialog(null,"You Lose!");
-                System.out.println("You Lose!");
-            }// end of inner if else
-       } else {
-           JOptionPane.showMessageDialog(null,"Players Total: "+total);
-           JOptionPane.showMessageDialog(null,"You Lose!");
-           System.out.println("You lose!");
-       }// end of outter if else
-        
-    }//end of main
-    
+            Cards.add(Card(deck));
 
-   // Generates a random card/number
-    public static int Card(int a[]){
-        int x; int card;
-        x=(int)(Math.random()*13);
-        card= a[x];
+            // Gives total value of cards
+            int total = PlayersTotal(Cards);
+            //Prints out the values in the cards array
+            System.out.println(Cards.toString());
+            JOptionPane.showMessageDialog(null, "Players Total: " + total);
+
+            // A loop that asks if you want another card
+            for (int i = 0; i < deck.length; i++) {
+                String y = JOptionPane.showInputDialog("Do you want another card?");
+                y = y.toLowerCase();
+                if (y.equals("yes") || y.equals("y")) {
+                    Cards.add(Card(deck));
+                    total = PlayersTotal(Cards);
+                    JOptionPane.showMessageDialog(null, "Players Total: " + total);
+                    System.out.println(Cards.toString());
+                    if (total >= 21) {
+                        break;
+                    }
+                } else {
+                    i = deck.length;
+                }// end of if else
+            }//end of for loop
+
+            //Generates cards for dealer
+            z = Dealer(deck);
+            // Total value of dealers cards
+            int dealerTotal = DealersTotal(z);
+            System.out.println(Arrays.toString(z) + " dealers cards");
+
+            //Checks if total is less than or equal to 21
+            if (total <= 21) {
+                //checks if Players total is greater that te Dealers total
+                if (total > dealerTotal) {
+                    JOptionPane.showMessageDialog(null, "Players Total: " + total);
+                    JOptionPane.showMessageDialog(null, "Dealers Total: " + dealerTotal);
+                    JOptionPane.showMessageDialog(null, "You Win!");
+                    System.out.println("You win!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Players Total: " + total);
+                    JOptionPane.showMessageDialog(null, "Dealers Total: " + dealerTotal);
+                    JOptionPane.showMessageDialog(null, "You Lose!");
+                    System.out.println("You Lose!");
+                }// end of inner if else
+            } else {
+                JOptionPane.showMessageDialog(null, "Players Total: " + total);
+                JOptionPane.showMessageDialog(null, "You Lose!");
+                System.out.println("You lose!");
+            }// end of outter if else
+            String playAgain = JOptionPane.showInputDialog("Do you want to play again?");
+            if (playAgain.equalsIgnoreCase("no") || playAgain.equalsIgnoreCase("n")) {
+                x = 1;
+            }
+        }//end of while loop
+    }//end of main
+
+    // Generates a random card/number
+    public static int Card(int a[]) {
+        int x;
+        int card;
+        x = (int) (Math.random() * 13);
+        card = a[x];
         return card;
     }
-    
 
-   //Generate random card/number for dealer
-    public static int[] Dealer(int a[]){
-        int card[]=new int[2];
-        card[0]=Card(a);
-        card[1]=Card(a);
-        return card; 
+    //Generate random card/number for dealer
+    public static int[] Dealer(int a[]) {
+        int card[] = new int[2];
+        card[0] = Card(a);
+        card[1] = Card(a);
+        return card;
     }
 
-   //Dealers total
-    public static int DealersTotal(int a[]){
-        int total=0;
-        for(int i=0;i<a.length;i++){
-           total=total+a[i]; 
+    //Dealers total
+    public static int DealersTotal(int a[]) {
+        int total = 0;
+        for (int i = 0; i < a.length; i++) {
+            total = total + a[i];
         }
-        System.out.println("Dealers Total: "+total);
+        System.out.println("Dealers Total: " + total);
         return total;
     }
-   
+
     //Players total
-      public static int PlayersTotal(ArrayList a){
-        int total=0;
-        for(int i=0;i<a.size();i++){
-            int num=(int) a.get(i);
-           total=total+num; 
+    public static int PlayersTotal(ArrayList a) {
+        int total = 0;
+        for (int i = 0; i < a.size(); i++) {
+            int num = (int) a.get(i);
+            total = total + num;
         }
-        System.out.println("Players Total: "+total);
+        System.out.println("Players Total: " + total);
         return total;
     }
-    
+
 }
